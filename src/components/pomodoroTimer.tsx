@@ -4,11 +4,14 @@ import { Button } from './button';
 import { Timer } from './Timer';
 
 interface Props {
-  defaultPomodoroTime: number;
+  pomodoroTime: number;
+  shortRestTime: number;
+  longRestTime: number;
+  cycles: number;
 }
 
 export function PomodoroTimer(props: Props): JSX.Element {
-  const [mainTime, setMainTime] = useState<number>(props.defaultPomodoroTime);
+  const [mainTime, setMainTime] = useState<number>(props.pomodoroTime);
 
   useInterval(() => {
     setMainTime(mainTime - 1);
