@@ -1,9 +1,10 @@
 import React from 'react';
+import { WrapTimer } from '../styles/GlobalStyle';
 import { secondsToTime } from '../utils/secondsToTime';
 
 interface Props {
   mainTime: number;
 }
 export function Timer(props: Props): JSX.Element {
-  return <div className="timer">{secondsToTime(props.mainTime)}</div>;
+  return <WrapTimer>{secondsToTime(props.mainTime)}</WrapTimer>;
 }
