@@ -21,6 +21,14 @@ export const GlobalStyle = createGlobalStyle`
     line-height: 1.5;
   }
 
+  #root {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+  }
+
   code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
       monospace;
@@ -28,17 +36,12 @@ export const GlobalStyle = createGlobalStyle`
 
 `;
 
-export const WrapContainer = styled.div`
-  max-width: 640px;
-  margin: 0 auto;
-  background-color: #ef5d50;
-`;
-
 export const WrapPomodoro = styled.div`
   background: #f5f5f5;
   margin: 50px 20px;
   padding: 20px;
   border-radius: 4px;
+  width: 500px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 
   h2 {

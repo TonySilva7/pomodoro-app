@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 // eslint-disable-next-line
 import { DefaultTheme, ThemeProvider } from 'styled-components';
 import { PomodoroTimer } from './components/pomodoroTimer';
 import { useInterval } from './hooks/useInterval';
 import { GlobalStyle } from './styles/GlobalStyle';
 import { activeTheme, restTheme } from './styles/theme';
+import { secondsToTime } from './utils/secondsToTime';
 
 function App(): JSX.Element {
   const [pomodoroTime, setPomodoroTime] = useState<number>(10);
@@ -15,7 +16,7 @@ function App(): JSX.Element {
   const [cycles, setCycles] = useState<boolean[]>(new Array(4 - 1).fill(true));
 
   const [completedCycle, setCompletedCycle] = useState<number>(0);
-  // const [fullWorkingTime, setFullWorkingTime] = useState<number>(0);
+  const [fullWorkingTime, setFullWorkingTime] = useState<number>(0);
   const [numberOfPomodoro, setNumberOfPomodoro] = useState<number>(0);
 
   useEffect(() => {
@@ -34,13 +35,11 @@ function App(): JSX.Element {
     if (isResting) handleWork();
   }, [isWorking, pomodoroTime, setCycles]);
 
-  console.log('Ciclos completados ', completedCycle);
-  console.log('Número de pomodoros: ', numberOfPomodoro);
-
   //-------------------
   useInterval(
     () => {
       setPomodoroTime(pomodoroTime - 1);
+      if (isWorking) setFullWorkingTime(fullWorkingTime + 1);
     },
     timeCounting ? 1000 : null,
   );
@@ -51,28 +50,31 @@ function App(): JSX.Element {
     new Audio('/notification.mp3').play().catch(() => '');
   };
 
-  const handleWork = () => {
+  const handleWork = useCallback(() => {
     setIsWorking(true);
     setIsResting(false);
     setTimeCounting(true);
     setPomodoroTime(10);
     setTheme(activeTheme);
     new Audio('/bell-start.mp3').play().catch(() => '');
-  };
+  }, [setIsWorking, setIsResting, setTimeCounting, setPomodoroTime, setTheme]);
 
-  const handleRest = (long: boolean) => {
-    setIsWorking(false);
-    setIsResting(true);
-    setTimeCounting(true);
-    setTheme(restTheme);
+  const handleRest = useCallback(
+    (long: boolean) => {
+      setIsWorking(false);
+      setIsResting(true);
+      setTimeCounting(true);
+      setTheme(restTheme);
 
-    if (long) {
-      setPomodoroTime(5);
-    } else {
-      setPomodoroTime(2);
-    }
-    new Audio('/bell-finish.mp3').play().catch(() => '');
-  };
+      if (long) {
+        setPomodoroTime(5);
+      } else {
+        setPomodoroTime(2);
+      }
+      new Audio('/bell-finish.mp3').play().catch(() => '');
+    },
+    [setIsWorking, setIsResting, setTimeCounting, setTheme],
+  );
 
   return (
     <ThemeProvider theme={theme}>
@@ -87,6 +89,7 @@ function App(): JSX.Element {
         isResting={isResting}
         completedCycles={completedCycle}
         numberOfPomodoro={numberOfPomodoro}
+        hoursWorking={secondsToTime(fullWorkingTime)}
       />
     </ThemeProvider>
   );

@@ -13,12 +13,13 @@ interface Props {
   handleRest: (long: boolean) => void;
   numberOfPomodoro: number;
   completedCycles: number;
+  hoursWorking: string;
 }
 
 export function PomodoroTimer(props: Props): JSX.Element {
   return (
     <WrapPomodoro>
-      <h2>Você está: Em atividade!</h2>
+      <h2>Você está: {props.isWorking ? 'Trabalhando' : 'Descansando'}</h2>
       <Timer mainTime={props.pomodoroTime} />
 
       <WrapControls>
@@ -35,9 +36,15 @@ export function PomodoroTimer(props: Props): JSX.Element {
       </WrapControls>
 
       <section>
-        <p>Ciclos concluídos: {props.completedCycles}</p>
-        <p>Horas trabalhadas: secondsToTime(fullWorkingTime)</p>
-        <p>Pomodoros concluídos: {props.numberOfPomodoro}</p>
+        <p>
+          Ciclos concluídos: <strong>{props.completedCycles}</strong>
+        </p>
+        <p>
+          Horas trabalhadas: <strong>{props.hoursWorking}</strong>{' '}
+        </p>
+        <p>
+          Pomodoros concluídos: <strong>{props.numberOfPomodoro}</strong>
+        </p>
       </section>
     </WrapPomodoro>
   );
