@@ -1,33 +1,36 @@
-import React, { useState } from 'react';
-import { useInterval } from '../hooks/useInterval';
+import React from 'react';
 import { WrapControls, WrapPomodoro } from '../styles/GlobalStyle';
 import { Button } from './button';
 import { Timer } from './Timer';
 
 interface Props {
   pomodoroTime: number;
-  shortRestTime: number;
-  longRestTime: number;
   cycles: number;
+  timeCounting: boolean;
+  isWorking: boolean;
+  isResting: boolean;
   toggleTheme: () => void;
+  handleWork: () => void;
+  handleRest: (long: boolean) => void;
 }
 
 export function PomodoroTimer(props: Props): JSX.Element {
-  const [mainTime, setMainTime] = useState<number>(props.pomodoroTime);
-
-  useInterval(() => {
-    setMainTime(mainTime - 1);
-  }, 1000);
-
   return (
     <WrapPomodoro>
       <h2>Você está: Em atividade!</h2>
-      <Timer mainTime={mainTime} />
+      <Timer mainTime={props.pomodoroTime} />
 
       <WrapControls>
-        <Button text="Teste1" onClick={props.toggleTheme} />
-        <Button text="Teste2" onClick={() => alert('oi')} />
-        <Button text="Teste3" onClick={() => alert('oi')} />
+        <Button text="Work" onClick={props.handleWork} />
+        <Button text="Rest" onClick={() => props.handleRest(false)} />
+        {props.isWorking || props.isResting ? (
+          <Button
+            text={props.timeCounting ? 'Pause' : 'Play'}
+            onClick={props.toggleTheme}
+          />
+        ) : (
+          ''
+        )}
       </WrapControls>
 
       <section>
