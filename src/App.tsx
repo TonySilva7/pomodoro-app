@@ -31,6 +31,7 @@ function App(): JSX.Element {
     setTimeCounting(true);
     setPomodoroTime(1500);
     setTheme(activeTheme);
+    new Audio('/bell-start.mp3').play().catch(() => '');
   };
 
   const handleRest = (long: boolean) => {
@@ -44,6 +45,7 @@ function App(): JSX.Element {
     } else {
       setPomodoroTime(300);
     }
+    new Audio('/bell-finish.mp3').play().catch(() => '');
   };
 
   return (
