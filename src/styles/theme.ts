@@ -1,3 +1,4 @@
+// eslint-disable-next-line
 import { DefaultTheme } from 'styled-components';
 
 const activeTheme: DefaultTheme = {

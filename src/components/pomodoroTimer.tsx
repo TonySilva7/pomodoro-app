@@ -5,13 +5,14 @@ import { Timer } from './Timer';
 
 interface Props {
   pomodoroTime: number;
-  cycles: number;
   timeCounting: boolean;
   isWorking: boolean;
   isResting: boolean;
   toggleTheme: () => void;
   handleWork: () => void;
   handleRest: (long: boolean) => void;
+  numberOfPomodoro: number;
+  completedCycles: number;
 }
 
 export function PomodoroTimer(props: Props): JSX.Element {
@@ -34,10 +35,9 @@ export function PomodoroTimer(props: Props): JSX.Element {
       </WrapControls>
 
       <section>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum.</p>
-        <p>Lorem ipsum dolor sit amet.</p>
-        <p>Lorem ipsum dolor sit amet consectetur.</p>
-        <p>Lorem, ipsum dolor.</p>
+        <p>Ciclos concluídos: {props.completedCycles}</p>
+        <p>Horas trabalhadas: secondsToTime(fullWorkingTime)</p>
+        <p>Pomodoros concluídos: {props.numberOfPomodoro}</p>
       </section>
     </WrapPomodoro>
   );
