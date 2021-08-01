@@ -47,16 +47,29 @@ export const WrapPomodoro = styled.div`
   h2 {
     font-size: 24px;
     text-align: center;
+    color: #444;
+    strong {
+      color: ${(props) => props.theme.colors.secondary};
+    }
   }
 
   section {
     margin: 20px 0;
+
+    p {
+      strong {
+        /* color: #ff8154; */
+        color: ${(props) => props.theme.colors.secondary};
+      }
+    }
   }
 `;
 
 export const WrapTimer = styled.div`
   font-size: 6rem;
   text-align: center;
+  font-weight: bold;
+  color: #444;
 `;
 
 export const WrapControls = styled.div`
@@ -65,13 +78,26 @@ export const WrapControls = styled.div`
   justify-content: space-evenly;
 
   button {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
     background-color: ${(props) => props.theme.colors.main};
     border: none;
     cursor: pointer;
-    padding: 10px 25px;
+    padding: 10px 14px;
     color: #000;
     transition: background-color 300ms ease;
     margin: 20px auto;
     border-radius: 5px;
+
+    svg {
+      margin-right: 10px;
+      fill: snow;
+    }
+
+    h3 {
+      color: #444;
+    }
   }
 `;

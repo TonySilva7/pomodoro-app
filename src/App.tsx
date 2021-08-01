@@ -18,6 +18,7 @@ function App(): JSX.Element {
   const [completedCycle, setCompletedCycle] = useState<number>(0);
   const [fullWorkingTime, setFullWorkingTime] = useState<number>(0);
   const [numberOfPomodoro, setNumberOfPomodoro] = useState<number>(0);
+  const [status, setStatus] = useState<string>('Aguardando...');
 
   useEffect(() => {
     if (pomodoroTime > 0) return;
@@ -54,8 +55,9 @@ function App(): JSX.Element {
     setIsWorking(true);
     setIsResting(false);
     setTimeCounting(true);
-    setPomodoroTime(10);
+    setPomodoroTime(1500);
     setTheme(activeTheme);
+    setStatus('Em atividade');
     new Audio('/bell-start.mp3').play().catch(() => '');
   }, [setIsWorking, setIsResting, setTimeCounting, setPomodoroTime, setTheme]);
 
@@ -65,6 +67,7 @@ function App(): JSX.Element {
       setIsResting(true);
       setTimeCounting(true);
       setTheme(restTheme);
+      setStatus('Descansando');
 
       if (long) {
         setPomodoroTime(900);
@@ -90,6 +93,7 @@ function App(): JSX.Element {
         completedCycles={completedCycle}
         numberOfPomodoro={numberOfPomodoro}
         hoursWorking={secondsToTime(fullWorkingTime)}
+        status={status}
       />
     </ThemeProvider>
   );

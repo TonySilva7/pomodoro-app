@@ -2,12 +2,13 @@ import React from 'react';
 interface Props {
   text: string;
   onClick?: () => void;
-  className?: string;
+  children: JSX.Element;
 }
 export function Button(props: Props): JSX.Element {
   return (
-    <button onClick={props.onClick} className={props.className}>
-      {props.text}
+    <button onClick={props.onClick}>
+      {props.children}
+      <h3>{props.text}</h3>
     </button>
   );
 }

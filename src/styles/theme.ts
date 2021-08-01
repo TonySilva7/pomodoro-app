@@ -7,7 +7,7 @@ const activeTheme: DefaultTheme = {
 
   colors: {
     main: '#ef5d50',
-    secondary: 'magenta',
+    secondary: '#ff8154',
   },
 };
 
@@ -17,7 +17,7 @@ const restTheme: DefaultTheme = {
 
   colors: {
     main: '#41e1ba',
-    secondary: 'magenta',
+    secondary: '#15b453',
   },
 };
 
