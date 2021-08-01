@@ -8,7 +8,7 @@ import { activeTheme, restTheme } from './styles/theme';
 import { secondsToTime } from './utils/secondsToTime';
 
 function App(): JSX.Element {
-  const [pomodoroTime, setPomodoroTime] = useState<number>(10);
+  const [pomodoroTime, setPomodoroTime] = useState<number>(1500);
   const [timeCounting, setTimeCounting] = useState<boolean>(false);
   const [isWorking, setIsWorking] = useState<boolean>(false);
   const [isResting, setIsResting] = useState<boolean>(false);
@@ -67,9 +67,9 @@ function App(): JSX.Element {
       setTheme(restTheme);
 
       if (long) {
-        setPomodoroTime(5);
+        setPomodoroTime(900);
       } else {
-        setPomodoroTime(2);
+        setPomodoroTime(300);
       }
       new Audio('/bell-finish.mp3').play().catch(() => '');
     },
