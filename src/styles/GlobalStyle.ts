@@ -171,7 +171,7 @@ export const WrapApp = styled.article`
   footer {
     color: #444;
     svg {
-      fill: #ef5d50;
+      fill: #f2f2f2;
     }
   }
 `;
