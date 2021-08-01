@@ -16,15 +16,23 @@ interface Props {
   completedCycles: number;
   hoursWorking: string;
   status: string;
+  loadBar: number;
 }
 
 export function PomodoroTimer(props: Props): JSX.Element {
   return (
-    <WrapPomodoro>
+    <WrapPomodoro loadBar={props.loadBar} isWorking={props.isWorking}>
       <h2>
         Você está: <strong>{props.status}</strong>
       </h2>
       <Timer mainTime={props.pomodoroTime} />
+
+      {/* {props.isWorking && ( */}
+      <span>
+        <span></span>
+        <em>{props.loadBar}%</em>
+      </span>
+      {/* )} */}
 
       <WrapControls>
         <Button

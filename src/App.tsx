@@ -1,9 +1,10 @@
 import React, { useCallback, useEffect, useState } from 'react';
+import { FaHeart } from 'react-icons/fa';
 // eslint-disable-next-line
 import { DefaultTheme, ThemeProvider } from 'styled-components';
 import { PomodoroTimer } from './components/pomodoroTimer';
 import { useInterval } from './hooks/useInterval';
-import { GlobalStyle } from './styles/GlobalStyle';
+import { GlobalStyle, WrapApp } from './styles/GlobalStyle';
 import { activeTheme, restTheme } from './styles/theme';
 import { secondsToTime } from './utils/secondsToTime';
 
@@ -19,6 +20,9 @@ function App(): JSX.Element {
   const [fullWorkingTime, setFullWorkingTime] = useState<number>(0);
   const [numberOfPomodoro, setNumberOfPomodoro] = useState<number>(0);
   const [status, setStatus] = useState<string>('Aguardando...');
+
+  const [loadBar, setLoadBar] = useState<number>(0);
+  const [countLoadBar, setCountLoadBar] = useState<number>(0);
 
   useEffect(() => {
     if (pomodoroTime > 0) return;
@@ -36,15 +40,25 @@ function App(): JSX.Element {
     if (isResting) handleWork();
   }, [isWorking, pomodoroTime, setCycles]);
 
-  //-------------------
+  //--------------------------------------
   useInterval(
     () => {
       setPomodoroTime(pomodoroTime - 1);
+
       if (isWorking) setFullWorkingTime(fullWorkingTime + 1);
+
+      if (isWorking) {
+        setCountLoadBar(countLoadBar + 1);
+        if (countLoadBar === 15) {
+          setCountLoadBar(0);
+          loadBar < 100 ? setLoadBar(loadBar + 1) : setLoadBar(0);
+        }
+      }
+      console.log('LoadBar: ', loadBar); // <<<<<<<<<<<<
     },
     timeCounting ? 1000 : null,
   );
-  //------------------
+  //--------------------------------------
 
   const toggleTheme = () => {
     setTimeCounting(!timeCounting);
@@ -57,6 +71,7 @@ function App(): JSX.Element {
     setTimeCounting(true);
     setPomodoroTime(1500);
     setTheme(activeTheme);
+    setLoadBar(0);
     setStatus('Em atividade');
     new Audio('/bell-start.mp3').play().catch(() => '');
   }, [setIsWorking, setIsResting, setTimeCounting, setPomodoroTime, setTheme]);
@@ -82,19 +97,27 @@ function App(): JSX.Element {
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyle />
-      <PomodoroTimer
-        pomodoroTime={pomodoroTime}
-        timeCounting={timeCounting}
-        toggleTheme={toggleTheme}
-        handleWork={handleWork}
-        handleRest={handleRest}
-        isWorking={isWorking}
-        isResting={isResting}
-        completedCycles={completedCycle}
-        numberOfPomodoro={numberOfPomodoro}
-        hoursWorking={secondsToTime(fullWorkingTime)}
-        status={status}
-      />
+
+      <WrapApp>
+        <h1>POMODORO APP</h1>
+        <PomodoroTimer
+          pomodoroTime={pomodoroTime}
+          timeCounting={timeCounting}
+          toggleTheme={toggleTheme}
+          handleWork={handleWork}
+          handleRest={handleRest}
+          isWorking={isWorking}
+          isResting={isResting}
+          completedCycles={completedCycle}
+          numberOfPomodoro={numberOfPomodoro}
+          hoursWorking={secondsToTime(fullWorkingTime)}
+          status={status}
+          loadBar={loadBar}
+        />
+        <footer>
+          Desenvolvido com <FaHeart /> por Tony Silva
+        </footer>
+      </WrapApp>
     </ThemeProvider>
   );
 }
