@@ -40,7 +40,7 @@ export const WrapPomodoro = styled.div<{ loadBar: number; isWorking: boolean }>`
   background: #f5f5f5;
   margin: 20px 20px;
   padding: 20px;
-  border-radius: 0 0 10px 10px;
+  border-radius: 10px;
   width: 500px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 
@@ -209,7 +209,7 @@ export const WrapApp = styled.article`
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     padding: 10px;
     width: 100%;
-    border-radius: 10px 10px 0 0;
+    border-radius: 10px;
     width: 500px;
 
     @media screen and (max-width: 600px) {
