@@ -106,10 +106,37 @@ export const WrapPomodoro = styled.div<{ loadBar: number; isWorking: boolean }>`
 `;
 
 export const WrapTimer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
   font-size: 6rem;
   text-align: center;
   font-weight: bold;
   color: #444;
+  line-height: 1;
+
+  div {
+    display: flex;
+    align-items: center;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+
+    input {
+      text-align: center;
+      outline: none;
+      border: none;
+      width: 5rem;
+      height: 2rem;
+      font-size: 1rem;
+      border-radius: 4px;
+      box-shadow: -2px 4px 3px rgba(0, 0, 0, 0.1) inset;
+    }
+
+    h3 {
+      padding: 0 0.7rem;
+    }
+  }
 `;
 
 export const WrapControls = styled.div`

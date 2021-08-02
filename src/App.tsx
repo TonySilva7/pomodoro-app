@@ -10,6 +10,9 @@ import { secondsToTime } from './utils/secondsToTime';
 
 function App(): JSX.Element {
   const [pomodoroTime, setPomodoroTime] = useState<number>(1500);
+  const [myMin, setMyMin] = useState<string>('25');
+  const [mySec, setMySec] = useState<string>('00');
+
   const [timeCounting, setTimeCounting] = useState<boolean>(false);
   const [isWorking, setIsWorking] = useState<boolean>(false);
   const [isResting, setIsResting] = useState<boolean>(false);
@@ -22,7 +25,7 @@ function App(): JSX.Element {
   const [status, setStatus] = useState<string>('Aguardando...');
 
   const [loadBar, setLoadBar] = useState<number>(0);
-  const [countLoadBar, setCountLoadBar] = useState<number>(0);
+  const [countLoadBar, setCountLoadBar] = useState<number>(1);
 
   useEffect(() => {
     if (pomodoroTime > 0) return;
@@ -49,33 +52,60 @@ function App(): JSX.Element {
 
       if (isWorking) {
         setCountLoadBar(countLoadBar + 1);
-        if (countLoadBar === 15) {
-          setCountLoadBar(0);
+
+        const iterateCycle = Math.round(handleSave() / 100);
+        console.log('countBar: ', countLoadBar, 'iterate: ', iterateCycle);
+        if (countLoadBar === iterateCycle) {
           loadBar < 100 ? setLoadBar(loadBar + 1) : setLoadBar(0);
+          setCountLoadBar(1);
         }
       }
-      console.log('LoadBar: ', loadBar); // <<<<<<<<<<<<
     },
     timeCounting ? 1000 : null,
   );
   //--------------------------------------
 
+  // inicia contagem
   const toggleTheme = () => {
     setTimeCounting(!timeCounting);
     new Audio('/notification.mp3').play().catch(() => '');
   };
 
+  // ...........
+  const handleSave = () => {
+    if (myMin === '' || mySec === '') {
+      alert('Digite um valor');
+      return 240;
+    }
+    const minToNumber = Number.parseInt(myMin);
+    const min = minToNumber * 60;
+
+    const secToNumber = Number.parseInt(mySec);
+    return min + secToNumber;
+  };
+  // ...........
+
+  // inicia working
   const handleWork = useCallback(() => {
+    setPomodoroTime(handleSave());
+
     setIsWorking(true);
     setIsResting(false);
     setTimeCounting(true);
-    setPomodoroTime(1500);
     setTheme(activeTheme);
     setLoadBar(0);
     setStatus('Em atividade');
     new Audio('/bell-start.mp3').play().catch(() => '');
-  }, [setIsWorking, setIsResting, setTimeCounting, setPomodoroTime, setTheme]);
+  }, [
+    setIsWorking,
+    setIsResting,
+    setTimeCounting,
+    setPomodoroTime,
+    setTheme,
+    handleSave,
+  ]);
 
+  // inicia resting
   const handleRest = useCallback(
     (long: boolean) => {
       setIsWorking(false);
@@ -85,13 +115,13 @@ function App(): JSX.Element {
       setStatus('Descansando');
 
       if (long) {
-        setPomodoroTime(900);
+        setPomodoroTime((handleSave() * 60) / 100);
       } else {
-        setPomodoroTime(300);
+        setPomodoroTime((handleSave() * 20) / 100);
       }
       new Audio('/bell-finish.mp3').play().catch(() => '');
     },
-    [setIsWorking, setIsResting, setTimeCounting, setTheme],
+    [setIsWorking, setIsResting, setTimeCounting, setTheme, handleSave],
   );
 
   return (
@@ -113,6 +143,11 @@ function App(): JSX.Element {
           hoursWorking={secondsToTime(fullWorkingTime)}
           status={status}
           loadBar={loadBar}
+          //...
+          myMin={myMin}
+          setMyMin={setMyMin}
+          mySec={mySec}
+          setMySec={setMySec}
         />
         <footer>
           Desenvolvido com <FaHeart /> por Tony Silva

@@ -12,11 +12,17 @@ interface Props {
   toggleTheme: () => void;
   handleWork: () => void;
   handleRest: (long: boolean) => void;
+
   numberOfPomodoro: number;
   completedCycles: number;
   hoursWorking: string;
   status: string;
   loadBar: number;
+
+  myMin: string;
+  setMyMin: (e: string) => void;
+  mySec: string;
+  setMySec: (e: string) => void;
 }
 
 export function PomodoroTimer(props: Props): JSX.Element {
@@ -25,7 +31,13 @@ export function PomodoroTimer(props: Props): JSX.Element {
       <h2>
         Você está: <strong>{props.status}</strong>
       </h2>
-      <Timer mainTime={props.pomodoroTime} />
+      <Timer
+        mainTime={props.pomodoroTime}
+        myMin={props.myMin}
+        setMyMin={props.setMyMin}
+        mySec={props.mySec}
+        setMySec={props.setMySec}
+      />
 
       {/* {props.isWorking && ( */}
       <span>
