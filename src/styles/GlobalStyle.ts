@@ -217,10 +217,13 @@ export const WrapApp = styled.article`
     }
   }
 
-  footer {
-    color: #444;
-    svg {
-      fill: #f2f2f2;
+  address {
+    a {
+      color: #444;
+      text-decoration: none;
+      svg {
+        fill: #f2f2f2;
+      }
     }
   }
 `;

@@ -155,9 +155,11 @@ function App(): JSX.Element {
           isDisplay={isDisplay}
           setIsDisplay={setIsDisplay}
         />
-        <footer>
-          Desenvolvido com <FaHeart /> por Tony Silva
-        </footer>
+        <address>
+          <a href="mailto:tony.deve7oper@gmail.com">
+            Desenvolvido com <FaHeart /> por @TonySilva
+          </a>
+        </address>
       </WrapApp>
     </ThemeProvider>
   );
