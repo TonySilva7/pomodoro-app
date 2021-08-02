@@ -23,6 +23,9 @@ interface Props {
   setMyMin: (e: string) => void;
   mySec: string;
   setMySec: (e: string) => void;
+
+  isDisplay: boolean;
+  setIsDisplay: (display: boolean) => void;
 }
 
 export function PomodoroTimer(props: Props): JSX.Element {
@@ -37,6 +40,8 @@ export function PomodoroTimer(props: Props): JSX.Element {
         setMyMin={props.setMyMin}
         mySec={props.mySec}
         setMySec={props.setMySec}
+        isDisplay={props.isDisplay}
+        setIsDisplay={props.setIsDisplay}
       />
 
       {/* {props.isWorking && ( */}

@@ -110,11 +110,31 @@ export const WrapTimer = styled.div`
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  font-size: 6rem;
-  text-align: center;
-  font-weight: bold;
-  color: #444;
-  line-height: 1;
+
+  div {
+    h1 {
+      font-size: 6rem;
+      text-align: center;
+      font-weight: bold;
+      color: #444;
+      line-height: 1;
+    }
+  }
+
+  button {
+    cursor: pointer;
+    border: none;
+    background: transparent;
+    svg {
+      fill: #aaa;
+      transition: all 200ms ease;
+    }
+
+    svg:hover {
+      fill: #444;
+      transform: rotate(45deg);
+    }
+  }
 
   div {
     display: flex;
@@ -122,15 +142,17 @@ export const WrapTimer = styled.div`
     font-size: 1rem;
     margin-bottom: 1rem;
 
-    input {
+    select {
       text-align: center;
       outline: none;
       border: none;
-      width: 5rem;
+      width: 4rem;
       height: 2rem;
       font-size: 1rem;
       border-radius: 4px;
       box-shadow: -2px 4px 3px rgba(0, 0, 0, 0.1) inset;
+      color: #444;
+      font-weight: bold;
     }
 
     h3 {

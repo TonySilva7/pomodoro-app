@@ -13,6 +13,8 @@ function App(): JSX.Element {
   const [myMin, setMyMin] = useState<string>('25');
   const [mySec, setMySec] = useState<string>('00');
 
+  const [isDisplay, setIsDisplay] = useState(false);
+
   const [timeCounting, setTimeCounting] = useState<boolean>(false);
   const [isWorking, setIsWorking] = useState<boolean>(false);
   const [isResting, setIsResting] = useState<boolean>(false);
@@ -88,6 +90,7 @@ function App(): JSX.Element {
   // inicia working
   const handleWork = useCallback(() => {
     setPomodoroTime(handleSave());
+    setIsDisplay(false);
 
     setIsWorking(true);
     setIsResting(false);
@@ -148,6 +151,9 @@ function App(): JSX.Element {
           setMyMin={setMyMin}
           mySec={mySec}
           setMySec={setMySec}
+          //...
+          isDisplay={isDisplay}
+          setIsDisplay={setIsDisplay}
         />
         <footer>
           Desenvolvido com <FaHeart /> por Tony Silva
