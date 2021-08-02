@@ -73,7 +73,7 @@ export const WrapPomodoro = styled.div<{ loadBar: number; isWorking: boolean }>`
       color: #f5f5f5;
       width: ${(props) => props.loadBar}%;
       height: 15px;
-      background: ${(props) => (props.isWorking ? '#ef5d50' : 'Transparent')};
+      background: ${(props) => (props.isWorking ? '#41e1ba' : 'Transparent')};
       border-radius: 10px;
       padding: 0 5px;
       transition: all 300px ease;
@@ -85,7 +85,7 @@ export const WrapPomodoro = styled.div<{ loadBar: number; isWorking: boolean }>`
       background-color: transparent;
       width: ${(props) => props.loadBar}%;
       font-size: 0.8rem;
-      color: ${(props) => (props.isWorking ? '#ef5d50' : 'Transparent')};
+      color: ${(props) => (props.isWorking ? '#41e1ba' : 'Transparent')};
     }
   }
 

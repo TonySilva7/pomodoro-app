@@ -56,7 +56,7 @@ function App(): JSX.Element {
         setCountLoadBar(countLoadBar + 1);
 
         const iterateCycle = Math.round(handleSave() / 100);
-        console.log('countBar: ', countLoadBar, 'iterate: ', iterateCycle);
+
         if (countLoadBar === iterateCycle) {
           loadBar < 100 ? setLoadBar(loadBar + 1) : setLoadBar(0);
           setCountLoadBar(1);

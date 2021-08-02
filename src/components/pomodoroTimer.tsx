@@ -44,12 +44,10 @@ export function PomodoroTimer(props: Props): JSX.Element {
         setIsDisplay={props.setIsDisplay}
       />
 
-      {/* {props.isWorking && ( */}
       <span>
         <span></span>
         <em>{props.loadBar}%</em>
       </span>
-      {/* )} */}
 
       <WrapControls>
         <Button
